@@ -38,6 +38,14 @@
 		$ git rm test.html    //从版本库中删除
 		$ git commit -m '删除 test.html文件'
 		$ git branch -D <name>     //丢弃一个没有被合并过的分支，可以通过强行删除。
+		/*删除文件/文件夹
+		$ git pull origin master 将远程仓库里面的项目拉下来
+		$ dir  查看有哪些文件夹
+		例如：删除target文件夹（删除文件直接写文件名即可）
+		$ git rm -r --cached target  
+		$ git commit -m '删除了target'  提交,添加操作说明
+		$ git push -u origin master 将本次更改更新到github项目上去
+		*/
 二 、远程仓库 
 
 　　1、创建SSH Key(需要生成 id_rsa私钥 和 id_rsa.pub公钥 两个文件)
@@ -100,10 +108,4 @@
 
 	$ git config --global color.ui true
 
-十一、删除文件/文件夹
-	$ git pull origin master 将远程仓库里面的项目拉下来
-	$ dir  查看有哪些文件夹
-	例如：删除target文件夹（删除文件直接写文件名即可）
-	$ git rm -r --cached target  
-	$ git commit -m '删除了target'  提交,添加操作说明
-	$ git push -u origin master 将本次更改更新到github项目上去
+
