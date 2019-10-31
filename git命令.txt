@@ -1,122 +1,109 @@
-安装git和基本用法 
+一、安装git和基本用法 
 
 　　1、从git 官网下载程序，默认安装即可。
-
+		https://gitforwindows.org/
 　　2、设置账号和邮箱关联，账号和邮箱可以是码云、GitLab...的账号都行：
-
-$ git config --global user.name "Your Name"             
-$ git config --global user.email "email@example.com"
+		$ git config --global user.name "Your Name"             
+		$ git config --global user.email "email@example.com"
 　　3、选择合适地方，创建空目录：
-
-$ mkdir test        //创建空目录，目录名字为test
-$ cd test   　　　　 //进入test目录
+		$ mkdir test        //创建空目录，目录名字为test
+		$ cd test   　　　　 //进入test目录
 　　4、初始化仓库，把目录变成git 可以管理的仓库：
-
-$ git init
-$ ls         //查看文件
-$ ls -ah       //如果.git目录是影藏的话，可以通过这个命令查看.git目录
+		$ git init
+		$ ls         //查看文件
+		$ ls -ah       //如果.git目录是影藏的话，可以通过这个命令查看.git目录
 　　5、提交文件到git 上
-
-$ git add .     　　　　　　　　　　　　 //告诉Git，把文件添加到仓库，此时是将修改添加到暂存区，可add 多次
-$ git commit -m '本次提交的备注'       //告诉Git把文件提交到仓库，此时是吧暂存区的所有内容提交到当前分支，可一次提交很多文件
+		$ git add .     　　　　　　　　　　　　 //告诉Git，把文件添加到仓库，此时是将修改添加到暂存区，可add 多次
+		$ git commit -m '本次提交的备注'       //告诉Git把文件提交到仓库，此时是吧暂存区的所有内容提交到当前分支，可一次提交很多文件
 　　6、查看当前仓库的状态
-
-$ git status    //查看版本库状态，什么被修改过但还没提交的
-
-$ git diff      //查看当前相对上一次提交修改的内容
+		$ git status    //查看版本库状态，什么被修改过但还没提交的
+		$ git diff      //查看当前相对上一次提交修改的内容
 　　7、版本回退
+		$ git log                         //显示从最近到最远的提交日志
+		$ git log   --pretty== oneline     //显示log,但是不显示很多凌乱的信息
+		q                                //显示log版本信息有很多，使用q键停止查看
+		git reset —hard head^         //回退到上一个版本
+		git reset —hard head^^        //回退到上上个版本
+		git reset —hard head~100      //回退到之前100个版本
+		git reset —hard +commit_id    //回到某个版本号的版本
 
-复制代码
-$ git log                         //显示从最近到最远的提交日志
-$ git log   --pretty== oneline     //显示log,但是不显示很多凌乱的信息
-q                                //显示log版本信息有很多，使用q键停止查看
-git reset —hard head^         //回退到上一个版本
-git reset —hard head^^        //回退到上上个版本
-git reset —hard head~100      //回退到之前100个版本
-git reset —hard +commit_id    //回到某个版本号的版本
+		git reset — hard 版本号     //版本回退多次后需要恢复最新版本
 
-git reset — hard 版本号     //版本回退多次后需要恢复最新版本
+		$ git reflog                     //查看曾经使用过的命令
 
-$ git reflog                     //查看曾经使用过的命令
-复制代码
 　　8、撤销修改
-
-$ git checkout -- test.html
-　　9、删除文件
-
-$ rm test.index     //可直接在文件管理中删除文件，要不用rm 命令去删除
-
-$ git rm test.html    //从版本库中删除
-$ git commit -m '删除 test.html文件'
-$ git branch -D <name>     //丢弃一个没有被合并过的分支，可以通过强行删除。
-远程仓库 
+		$ git checkout -- test.html
+	9、删除文件
+		$ rm test.index     //可直接在文件管理中删除文件，要不用rm 命令去删除
+		$ git rm test.html    //从版本库中删除
+		$ git commit -m '删除 test.html文件'
+		$ git branch -D <name>     //丢弃一个没有被合并过的分支，可以通过强行删除。
+二 、远程仓库 
 
 　　1、创建SSH Key(需要生成 id_rsa私钥 和 id_rsa.pub公钥 两个文件)
-
-$ ssh-keygen -t rsa -C "youremail@example.com"
+		$ ssh-keygen -t rsa -C "youremail@example.com"
 　　2、登录GitHub，设置"SSH Keys",复制 id_rsa.pub 内容去添加。可允许添加多个SSH。
-
-　　3、关联远程仓库
-
-$ git remote add origin git@github.com：账户名
+		右上角头像->Your profile->右上角Edit profile->左侧菜单栏点击SSH and GPG keys->右上角New SSH key->输入title和key
+		key文件路径：C:\Users\Administrator\.ssh\id_rsa.pub 右键点开粘贴到key内 点击Add SSH key保存
+		登录GitHub：$ git remote add origin git@github.com:账户名
 　　4、将本地的内容推送到远程库分支上
-
-$ git push -u origin 分支名字       //第一次推送分支所有内容
-$ git push origin 分支名字          //推送最新修改
+		$ git push -u origin 分支名字       //第一次推送分支所有内容
+		$ git push origin 分支名字          //推送最新修改
 　　5、查看远程仓库信息
+		$ git remote 
+		$ git remote -v      //查看更加详细的信息
+三、克隆
+	$ git clone 需要克隆的仓库地址
+四、创建分支，并且切换过去
+	$ git checkout -b 新分支的名字       //创建分支并且切入进分支
 
-$ git remote 
+	或者等同于
 
-$ git remote -v      //查看更加详细的信息
-克隆
+	$ git branch 分支名       //创建分支
+	$ git checkout 分支名     //切换到分支
+	$ git branch               //查看分支
 
-$ git clone 需要克隆的仓库地址
-创建分支，并且切换过去
+五、合并分支
+	$ git checkout -b dev
+	$ git branch
+	$ git add .
+	$ git commit -m '提交test文件到dev分支'
+	$ git checkout master     //切换到主分支
+	$ git merge dev        //将dev分支上的内容合并到master分支上，合并 指定分支 到 当前分支
+	$ git merge --no-ff -m "merge with no-ff" dev  //合并分支时加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，通过git log查看
+	$ git branch -d dev     //删除dev分支
 
-复制代码
-$ git checkout -b 新分支的名字       //创建分支并且切入进分支
-
-或者等同于
-
-$ git branch 分支名       //创建分支
-$ git checkout 分支名     //切换到分支
-$ git branch               //查看分支
-复制代码
-合并分支
-
-复制代码
-$ git checkout -b dev
-$ git branch
-$ git add .
-$ git commit -m '提交test文件到dev分支'
-$ git checkout master     //切换到主分支
-$ git merge dev        //将dev分支上的内容合并到master分支上，合并 指定分支 到 当前分支
-$ git merge --no-ff -m "merge with no-ff" dev  //合并分支时加上--no-ff参数就可以用普通模式合并，合并后的历史有分支，通过git log查看
-$ git branch -d dev     //删除dev分支
-复制代码
-解决冲突：
+六、解决冲突：
 
 　　同一文件修改冲突，需要手动解决冲突后再提交。git status可查看冲突，根据标记可修改冲突部分，修改结束后再重新提交。
 
-$ git pull         //拉取远程内容
-$ git log --graph        //命令可以看到分支合并图。
- 关联本地仓库和远程仓库
+	$ git pull         //拉取远程内容
+	$ git log --graph        //命令可以看到分支合并图。
+七、关联本地仓库和远程仓库
 
-$ git branch --set-upstream-to <branch-name> origin/<branch-name>
-创建标签
+	$ git branch --set-upstream-to <branch-name> origin/<branch-name>
+八、创建标签
 
-$ git branch 
-$ git checkout dev
-$ git tag v1.0      //为当前需要打标签的分支打新标签
+	$ git branch 
+	$ git checkout dev
+	$ git tag v1.0      //为当前需要打标签的分支打新标签
 
-$ git tag        //查看所有标签
-$ git tag -a 指定标签信息 -m "blablabla..."   //可指定标签信息 
-操作标签 
+	$ git tag        //查看所有标签
+	$ git tag -a 指定标签信息 -m "blablabla..."   //可指定标签信息 
+九、操作标签 
 
-$ git push origin <tagname>     //可以推送一个本地标签；
-$ git push origin --tags        //可以推送全部未推送过的本地标签；
-$ git tag -d <tagname>        //可以删除一个本地标签；
-$ git push origin :refs/tags/<tagname>     //可以删除一个远程标签。
-改变Git颜=色
+	$ git push origin <tagname>     //可以推送一个本地标签；
+	$ git push origin --tags        //可以推送全部未推送过的本地标签；
+	$ git tag -d <tagname>        //可以删除一个本地标签；
+	$ git push origin :refs/tags/<tagname>     //可以删除一个远程标签。
+十、改变Git颜=色
 
-$ git config --global color.ui true
+	$ git config --global color.ui true
+
+十一、删除文件/文件夹
+	$ git pull origin master 将远程仓库里面的项目拉下来
+	$ dir  查看有哪些文件夹
+	例如：删除target文件夹（删除文件直接写文件名即可）
+	$ git rm -r --cached target  
+	$ git commit -m '删除了target'  提交,添加操作说明
+	$ git push -u origin master 将本次更改更新到github项目上去
